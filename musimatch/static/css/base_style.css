@@ -1,0 +1,14 @@
+h1, p {
+    text-align: center;
+}
+
+body {
+    min-height: 15vh;
+    display: flex;
+}
+
+main {
+    flex-grow: 1;
+    display: grid;
+    place-content: center;
+}
