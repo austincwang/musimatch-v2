@@ -1,5 +1,6 @@
 * {
     padding: 5px;
+    color: #FFF;
 }
 
 h1, p {
@@ -9,6 +10,7 @@ h1, p {
 body {
     min-height: 15vh;
     display: flex;
+    background-color: #121212 !important;
 }
 
 main {
@@ -17,6 +19,39 @@ main {
     place-content: center;
 }
 
-a {
-    text-decoration: none;
+nav ul li{
+    display: inline-block;
+    list-style: none;
+    margin: 10px 20px;
 }
+
+nav ul li a{
+    color: #FFF;
+    text-decoration: none;
+    font-size: 18px;
+    position: relative;
+}
+
+nav ul li a::after{
+    content: '';
+    width: 0;
+    height: 3px;
+    background: #1db954;
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    transition: 0.5s;
+}
+nav ul li a:hover::after{
+    width: 100%;
+}
+.header-text{
+    margin-top: 20%;
+    font-size: 30px;
+}
+.header-text h1{
+    font-size: 60px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
