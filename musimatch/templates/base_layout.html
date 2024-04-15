@@ -23,8 +23,20 @@
                     <a href="/about" style="text-decoration: none;">About Us</a>
                 </li>
                 <li role="presentation">
-                    <a href="/game/join" style="text-decoration: none;">Join Game</a>
+                    <a href="{% url 'game:join' %}" style="text-decoration: none;">Join Game</a>
                 </li>
+                {% if not user.is_authenticated %}
+                <li role="presentation">
+                    <a href="{% url 'users:register' %}" style="text-decoration: none;">Register</a>
+                </li>
+                <li role="presentation">
+                    <a href="{% url 'users:login' %}" style="text-decoration: none;">Login</a>
+                </li>
+                {% else %}
+                <li role="presentation">
+                    <a href="{% url 'users:profile' %}" style="text-decoration: none;">Profile</a>
+                </li>
+                {% endif %}
             </ul>
         </nav>
         {% block content %}

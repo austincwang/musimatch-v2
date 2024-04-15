@@ -1,0 +1,13 @@
+{% extends 'base_layout.html' %}
+
+{% block title %}
+    Profile
+{% endblock %}
+
+{% block content %}
+    <h1>My Profile</h1>
+    <form class="logout" action="{% url 'users:logout' %}" method="post">
+        {% csrf_token %}
+        <button class="form-submit">Logout</button>
+    </form>
+{% endblock %}
