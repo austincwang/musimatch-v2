@@ -4,9 +4,14 @@
     Join Game
 {% endblock %}
 
+
 {% block content %}
     <h1>Join Game</h1>
-    {% for item in things %}
-        <p>{{ item }}</p>
-    {% endfor %}
-{% endblock %}
+    {% block category %}
+    <a class="button" id="song-of-the-day-btn" href="{% url 'play_random_song' %}" role="button">Song of the Day - currently random</a> 
+    <a class="button" href="{% url 'play_by_artist' %}" role="button">Play by Artist</a>
+    <a class="button" href="{% url 'play_by_genre' %}" role="button">Play by Genre</a>
+    <a class="button" href="{% url 'play_by_time_period' %}" role="button">Play by Time Period</a>
+    {% endblock %}
+
+    {% endblock %}

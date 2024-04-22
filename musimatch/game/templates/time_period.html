@@ -1,0 +1,17 @@
+{% extends 'base_layout.html' %}
+
+{% block title %}
+    Play by time period
+{% endblock %}
+
+{% block content %}
+    <h1>Category: time period</h1>
+    <div style="text-align: center; margin-top: 100px;"> 
+        <form method="post" action="{% url 'time_period_search' %}">
+            {% csrf_token %}
+            <label for="submission">Enter time period:</label><br> 
+            <input type="text" id="submission" name="submission" style="color: green;">
+            <button type="submit" style="color: green;">Submit</button>
+        </form>
+    </div>
+{% endblock %}

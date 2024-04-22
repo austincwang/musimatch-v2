@@ -6599,3 +6599,5 @@ musimatch/game/__pycache__/urls.cpython-312.pyc
 .venv/Lib/site-packages/pygame/transform.cp312-win_amd64.pyd
 .venv/Lib/site-packages/pygame/zlib1.dll
 .venv/Lib/site-packages/regex/_regex.cp312-win_amd64.pyd
+musimatch/.venv
+musimatch/game/__pycache__
