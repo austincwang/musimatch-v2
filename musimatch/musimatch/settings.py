@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-a)1&)o^*a0!p==8brm-smsqy*vj6#s@f4$g+eltmp4zm-4l_ds
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
 
 # Application definition
@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'game',
     'users',
 ]
+
+AUTH_USER_MODEL = 'users.CustomUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -87,9 +89,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         "NAME": "railway",
         "USER": "postgres",
-        "PASSWORD": "RSVfcOgTwOeKeERTjybdWdriCanwfqKj",
-        "HOST": "roundhouse.proxy.rlwy.net",
-        "PORT": "29006",
+        "PASSWORD": "YgkMiKPjXyfLCWMbviPxRXhQpKbriqjC",
+        "HOST": "viaduct.proxy.rlwy.net",
+        "PORT": "30335",
     }
 }
 
@@ -117,7 +119,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/New_York'
 
 USE_I18N = True
 
@@ -128,16 +130,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# STATIC_ROOT = BASE_DIR / 'assets'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
-
-# Media files
-
-MEDIA_URL = 'media/'
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

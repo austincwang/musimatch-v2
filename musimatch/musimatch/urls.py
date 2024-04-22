@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.homepage),
     path('about/', views.about),
+    path('error/<str:error>', views.error),
     path('game/', include('game.urls')),
     path('users/', include('users.urls')),
 ]

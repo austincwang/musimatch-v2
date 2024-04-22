@@ -9,6 +9,7 @@
     <form class="register-form" action="{% url 'users:register' %}" method="post">
         {% csrf_token %}
         {{ form }}
-        <button class="form-submit">Submit</button>
+        <br>
+        <button class="btn btn-secondary">Submit</button>
     </form>
 {% endblock %}
