@@ -102,7 +102,8 @@ def play_game():
             break
 
 # Main loop for the game
-while True:
+play = False
+while play:
     play_game()
 
     # Ask if the user wants to play again
@@ -115,3 +116,31 @@ while True:
             break  # Break the inner loop and play again
         else:
             print("Invalid input. Please enter 'y' or 'n'.")
+
+def search_random_track(artist):
+    # Search for the artist
+    results = sp.search(q='artist:' + artist, type='artist', limit=1)
+    if len(results['artists']['items']) == 0:
+        print("No artist found with the name", artist)
+        return
+
+    artist_id = results['artists']['items'][0]['id']
+
+    # Get the top tracks for the artist
+    top_tracks = sp.artist_top_tracks(artist_id)
+
+    if len(top_tracks['tracks']) == 0:
+        print("No tracks found for the artist", artist)
+        return
+
+    # Select a random track from the top tracks
+    random_track = random.choice(top_tracks['tracks'])
+
+    return random_track
+
+# Example usage
+artist_name = input("Enter the name of an artist: ")
+track = search_random_track(artist_name)
+if track:
+    print("Random track by", artist_name, ":", track['name'])
+    print("Preview URL:", track['preview_url'])
