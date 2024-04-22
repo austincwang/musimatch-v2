@@ -20,3 +20,9 @@ main {
 a {
     text-decoration: none;
 }
+
+.pfp {
+    display: block;
+    width: 100%;
+    max-width: 500px;
+}

@@ -1,0 +1,16 @@
+{% extends 'base_layout.html' %}
+
+{% block title %}
+    Edit Profile
+{% endblock %}
+
+{% block content %}
+    <br>
+    <h1>Edit Profile</h1>
+    <form class="" action="{% url 'users:edit-profile' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form }}
+        <br>
+        <button class="btn btn-secondary">Update</button>
+    </form>
+{% endblock %}
