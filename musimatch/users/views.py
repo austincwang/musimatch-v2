@@ -21,30 +21,73 @@ def profile_view(request, user_name):
 
 
 def register_view(request):
-    # redirect for when register form is valid and submitted
-    # note: in a valid form, username cannot be existing
-    if request.method == "POST":
-        form = RegisterForm(request.POST)
-        if form.is_valid():
-            login(request, form.save())
-            return redirect("users:profile")
-    else:
-        form = RegisterForm()
+    if request.user.is_authenticated:
+        return redirect("users:profile", user_name = request.user.username)
     
-    return render(request, "register.html", { "form": form })
+    elif request.method == "POST":
+        if 'register_form' in request.POST:
+            if request.POST['reg_password1'] != request.POST['reg_password2']:
+                messages.error(request, "Passwords do not match")
+                return redirect("users:register")
+            else:
+                register_form = RegisterForm(
+                    data = {
+                        'username': request.POST['reg_username'],
+                        'email': request.POST['reg_email'],
+                        'password1': request.POST['reg_password1'],
+                        'password2': request.POST['reg_password2']
+                    }
+                )
+                if register_form.is_valid():
+                    login(request, register_form.save())
+                    messages.success(request, "Account created successfully")
+                    user_name = register_form.cleaned_data.get("username")
+                    return redirect("users:profile", user_name = user_name)
+                else:
+                    messages.error(request, "An error occurred")
+                    return redirect("users:register")
+
+    return render(request, "register.html")
 
 
 def login_view(request):
-    if request.method == "POST":
-        form = LoginForm(data=request.POST)
-        if form.is_valid():
-            login(request, form.get_user())
-            user_name = form.cleaned_data.get("username")
-            return redirect("users:profile", user_name = user_name)
-    else:
-        form = LoginForm()
+    if request.user.is_authenticated:
+        return redirect("users:profile", user_name = request.user.username)
+    
+    elif request.method == "POST":
+        if 'login_form' in request.POST:
+            login_form = LoginForm(data=request.POST)
+            if login_form.is_valid():
+                login(request, login_form.get_user())
+                user_name = login_form.cleaned_data.get("username")
+                return redirect("users:profile", user_name = user_name)
+            else:
+                messages.error(request, "User not found")
+                return redirect("users:login")
+            
+        elif 'register_form' in request.POST:
+            if request.POST['reg_password1'] != request.POST['reg_password2']:
+                messages.error(request, "Passwords do not match")
+                return redirect("users:login")
+            else:
+                register_form = RegisterForm(
+                    data = {
+                        'username': request.POST['reg_username'],
+                        'email': request.POST['reg_email'],
+                        'password1': request.POST['reg_password1'],
+                        'password2': request.POST['reg_password2']
+                    }
+                )
+                if register_form.is_valid():
+                    login(request, register_form.save())
+                    messages.success(request, "Account created successfully")
+                    user_name = register_form.cleaned_data.get("username")
+                    return redirect("users:profile", user_name = user_name)
+                else:
+                    messages.error(request, "An error occurred")
+                    return redirect("users:login")
 
-    return render(request, "login.html", { "form": form })
+    return render(request, "login.html")
 
 
 def logout_view(request):
@@ -54,17 +97,30 @@ def logout_view(request):
     
 
 def edit_profile_view(request):
-    if request.method == "POST":
-        current_user = get_user_model().objects.get(username=request.user.username)
-        form = UpdateProfileForm(request.POST, request.FILES, instance=current_user)
-        if form.is_valid():
-            form.save()
-            login(request, current_user)
-            messages.success(request, "Profile updated successfully")
-            return redirect("users:profile")
-    else:
-        form = UpdateProfileForm(instance=request.user)
+    current_user = get_user_model().objects.get(username=request.user.username)
     
-    return render(request, "edit-profile.html", { "form": form })
+    if request.method == "POST":
+        if 'update' in request.POST:
+            form = UpdateProfileForm(
+                data = {
+                    'username': request.POST['username'],
+                    'pfp': request.FILES['image'],
+                    'description': request.POST['description']
+                },
+                instance=current_user
+            )
+            if form.is_valid():
+                form.save()
+                login(request, current_user)
+                messages.success(request, "Profile updated successfully")
+                return redirect("users:profile", user_name = current_user.username)
+            
+        elif 'cancel' in request.POST:
+            return redirect("users:profile", user_name = current_user.username)
+        
+    else:
+        form = UpdateProfileForm(instance=current_user)
+
+    return render(request, "edit-profile.html")
 
     

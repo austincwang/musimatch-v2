@@ -5,11 +5,36 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Login</h1>
-    <form class="register-form" action="{% url 'users:login' %}" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <br>
-        <button class="btn btn-secondary">Submit</button>
-    </form>
+    <section class="home show">
+        <div class="form_container">
+            <!-- Login From -->
+            <div class="form login_form">
+                <form action="{% url 'users:login' %}" method="post">
+                    {% csrf_token %}
+                    <h2>Log In</h2>
+                    <div class="input_box">
+                        <i class="uil uil-user user"></i>
+                        <input type="text" id="username" name="username" placeholder="Username" required />
+                    </div>
+                    <div class="input_box">
+                        <i class="uil uil-lock password"></i>
+                        <i class="uil uil-eye-slash pw_hide"></i>
+                        <input type="password" id="password" name="password" placeholder="Password" required />
+                    </div>
+                    <div class="option_field">
+                        <span class="checkbox">
+                        <input type="checkbox" id="check" />
+                        <label for="check">Remember me</label>
+                        </span>
+                        <a href="#" class="forgot_pw" id="forgot_pw">Forgot password?</a>
+                    </div>
+                    <button class="button" name="login_form">Log In</button>
+                    <div class="login_signup">Don't have an account? 
+                        <a href="{% url 'users:register' %}" id="">Register</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
 {% endblock %}
+

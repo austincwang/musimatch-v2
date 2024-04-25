@@ -18,7 +18,7 @@
                     width = 100
                 />
                 <span class="name mt-2">@{{ username }}</span>
-                <div class="text-md mt-1">
+                <div class="text-md mt-3">
                     <p>{{ description }}</p>
                 </div>
                 <div class="d-flex flex-row justify-content-center align-items-center">
@@ -27,11 +27,12 @@
                     </span>
                 </div>
                 {% if user.username == username %}
-                    <div class=" d-flex mt-2">
+                    <div class=" d-flex mt-3">
                         <form action="{% url 'users:logout' %}" method="post">
                             {% csrf_token %}
                             <button class="btn1 btn-dark">Logout</button>
                         </form>
+                        &emsp;
                         <form action="{% url 'users:edit-profile' %}" method="post">
                             {% csrf_token %}
                             <button class="btn1 btn-dark">Edit Profile</button>
@@ -58,7 +59,7 @@
 
     .card {
         width: 350px;
-        background-color: #efefef;
+        background-color: #353434e5;
         border: none;
         transition: all 0.5s;
     }
@@ -89,7 +90,7 @@
     .follow {
         font-size: 12px;
         font-weight: 500;
-        color: #444444
+        color: #ffffff
     }
     
     .btn1 {
@@ -103,7 +104,8 @@
 
     .btn1:hover {
         background-color: #000;
-        color: #fff;
+        transition: 0.5s;
+        color: #1db954;
     }
     
     .text span {
@@ -122,12 +124,12 @@
     
     .join {
         font-size: 14px;
-        color: #a0a0a0;
+        color: #d8d8d8;
         font-weight: bold
     }
     
     .date {
-        background-color: #ccc
+        background-color: #515151
     }
 </style>
 {% endblock %}

@@ -5,11 +5,37 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Register</h1>
-    <form class="register-form" action="{% url 'users:register' %}" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <br>
-        <button class="btn btn-secondary">Submit</button>
-    </form>
+    <section class="home show">
+        <div class="form_container">
+            <!-- Register From -->
+            <div class="form">
+                <form action="{% url 'users:register' %}" method="post">
+                    {% csrf_token %}
+                    <h2>Register</h2>
+                    <div class="input_box">
+                        <i class="uil uil-user user"></i>
+                        <input type="text" id="reg_username" name="reg_username" placeholder="Enter a username" required />
+                    </div>
+                    <div class="input_box">
+                        <i class="uil uil-envelope-alt email"></i>
+                        <input type="email" id="reg_email" name="reg_email" placeholder="Enter your email" required />
+                    </div>
+                    <div class="input_box">
+                        <i class="uil uil-lock password"></i>
+                        <i class="uil uil-eye-slash pw_hide"></i>
+                        <input type="password" id="reg_password1" name="reg_password1" placeholder="Create password" required />
+                    </div>
+                    <div class="input_box">
+                        <i class="uil uil-lock password"></i>
+                        <i class="uil uil-eye-slash pw_hide"></i>
+                        <input type="password" id="reg_password2" name="reg_password2" placeholder="Confirm password" required />
+                    </div>
+                    <button class="button" name="register_form">Register Now</button>
+                    <div class="login_signup">Already have an account? 
+                        <a href="{% url 'users:login' %}" id="">Login</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
 {% endblock %}

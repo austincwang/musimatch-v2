@@ -1,5 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
 * {
-    padding: 5px;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    color: #FFF;
+}
+
+a {
+    text-decoration: none;
     color: #FFF;
 }
 
@@ -8,7 +18,7 @@ h1, p {
 }
 
 body {
-    min-height: 15vh;
+    min-height: 100vh;
     display: flex;
     background-color: #121212 !important;
 }
@@ -17,6 +27,34 @@ main {
     flex-grow: 1;
     display: grid;
     place-content: center;
+}
+
+.nav {
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.nav,
+.nav_item {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 25px;
+}
+
+.nav_logo {
+    font-size: 32px;
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 30px;
+    color: #FFF;
+}
+
+.nav_logo:hover {
+    color: #1db954;
+    transition: 0.4s;
 }
 
 nav ul li{
@@ -29,6 +67,9 @@ nav ul li a{
     color: #FFF;
     text-decoration: none;
     font-size: 18px;
+    font-weight: 500px;
+    margin-left: 20px;
+    margin-top: 10px;
     position: relative;
 }
 
@@ -39,17 +80,34 @@ nav ul li a::after{
     background: #1db954;
     position: absolute;
     left: 0;
-    bottom: -6px;
-    transition: 0.5s;
+    bottom: -2px;
+    transition: 0.4s;
 }
+
 nav ul li a:hover::after{
     width: 100%;
 }
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 80px;
+    width: 100%;
+    z-index: 100;
+    padding: 20px 100px;
+    background-image: linear-gradient(rgb(75, 75, 75), rgb(12, 12, 12));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .header-text{
     margin-top: 20%;
     font-size: 30px;
 }
-.header-text h1{
+
+.header-text h1 {
     font-size: 60px;
     margin-top: 20px;
     margin-bottom: 20px;
@@ -61,9 +119,195 @@ nav ul li a:hover::after{
     border: 2px solid #FFF; 
     padding: 10px 20px; 
     cursor: pointer; 
+    text-decoration: none;
 }
 
 .button:hover {
     color: #1db954;
     border: 2px solid #1db954;
+    transition: 0.5s;
+}
+
+/* Home */
+/* .home {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+}
+
+.home::before {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.home.show::before {
+    opacity: 1;
+    pointer-events: auto;
+} */
+
+
+/* Form */
+.form_container {
+    position: fixed;
+    max-width: 320px;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.2);
+    z-index: 101;
+    background-color: rgb(50, 50, 50);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.home.show .form_container {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.signup_form {
+    display: none;
+}
+
+.form_container.active .signup_form {
+    display: block;
+}
+
+.form_container.active .login_form {
+    display: none;
+}
+
+.form_close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color: #FFF;
+    font-size: 22px;
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.form_container h2 {
+    font-size: 22px;
+    color: #FFF;
+    text-align: center;
+}
+
+.input_box {
+    position: relative;
+    margin-top: 30px;
+    width: 100%;
+    height: 40px;
+}
+
+.input_box input {
+    height: 100%;
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    padding: 0 35px;
+    color: #333;
+    transition: all 0.2s ease;
+    border-bottom: 2px solid rgb(50, 50, 50);
+}
+
+.input_box textarea {
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+    padding: 0 35px;
+}
+
+.input_box input:hover {
+    border-color: #1db954;
+}
+
+.input_box i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    margin-left: 10px;
+    color: #707070;
+}
+
+
+.input_box input:focus ~ i.email,
+.input_box input:focus ~ i.password, 
+.input_box input:focus ~ i.user {
+    color: #1db954;
+}
+
+.input_box i.pw_hide {
+    right: 0;
+    margin-right: 10px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.option_field {
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.form_container a {
+    color: #1db954;
+    font-size: 12px;
+}
+
+.form_container a:hover {
+    text-decoration: underline;
+}
+
+.checkbox {
+    display: flex;
+    column-gap: 8px;
+    white-space: nowrap;
+}
+
+.checkbox input {
+    accent-color: #1db954;
+}
+
+.checkbox label {
+    font-size: 12px;
+    cursor: pointer;
+    user-select: none;
+    color: #FFF;
+}
+
+.form_container .button {
+    background: #1db954;
+    margin-top: 30px;
+    width: 100%;
+    padding: 10px 0;
+    border-radius: 10px;
+    color: #000000;
+    border: 2px solid #1db954; 
+}
+
+.form_container .button:hover {
+    color: #FFF;
+    transition: 0.2s;
+}
+
+.login_signup {
+    font-size: 12px;
+    text-align: center;
+    margin-top: 15px;
 }

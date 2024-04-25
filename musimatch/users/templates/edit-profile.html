@@ -5,12 +5,40 @@
 {% endblock %}
 
 {% block content %}
-    <br>
-    <h1>Edit Profile</h1>
-    <form class="" action="{% url 'users:edit-profile' %}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form }}
-        <br>
-        <button class="btn btn-secondary">Update</button>
-    </form>
+<section class="home show">
+    <div class="form_container">
+        <!-- Register From -->
+        <div class="form">
+            <form action="{% url 'users:edit-profile' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h2>Edit Profile</h2>
+                <div class="input_box">
+                    <i class="uil uil-user user"></i>
+                    <input type="text" id="username" name="username" placeholder="Username" required />
+                </div>
+                <div class="input_box">
+                    <i class="uil uil-image"></i>
+                    <input type="file" id="image" name="image" accept="image/*" />
+                </div>
+                <div class="input_box">
+                    <textarea id="description" name="description" placeholder="Description" rows="2" cols="31"></textarea>
+                </div>
+                <button class="button" name="update">Update</button>
+                <button class="button" name="cancel">Cancel</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block style %}
+    <style>
+        #description {
+            color: black;
+        }
+
+        #image:hover {
+            border-bottom: 2px solid rgb(50, 50, 50);
+        }
+    </style>
 {% endblock %}

@@ -6,7 +6,7 @@ from django.contrib.auth.models import AbstractUser
 class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
     description = models.TextField(max_length=200, default='I\'m using Musimatch!', blank=True)
-    pfp = models.ImageField(default='default.png', blank=True, null=True, upload_to='images/')
+    pfp = models.ImageField(default='default_pfp.jpg', blank=True, null=True)
 
     def __str__(self):
         return self.username
