@@ -7,7 +7,7 @@
 {% block content %}
     <h1>Category: artist</h1>
     <div style="text-align: center; margin-top: 50px;"> 
-        <form method="post" action="{% url 'artist_search' %}">
+        <form method="post" action="{% url 'game:artist_search' %}">
             {% csrf_token %}
             <label for="submission">Enter Artist:</label><br> 
             <input type="text" id="submission" name="submission" style="color: green;">
