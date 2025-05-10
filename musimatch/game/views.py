@@ -1,12 +1,27 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import redirect
+from django.conf import settings
 from spotipy.oauth2 import SpotifyClientCredentials
 import spotipy
+import random
 import requests
 from io import BytesIO
 from pygame import mixer
 import time
+import pygame.mixer
+import nltk
+
+nltk.download('words')
+from nltk.corpus import words
+
+pygame.mixer.init()
+
+client_id = settings.CLIENT_ID
+client_secret = settings.ClIENT_SECRET
+client_credentials_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
+sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+word_list = words.words()
 
 
 # Create your views here.
@@ -16,28 +31,6 @@ def join_game(request):
     context['things'] = list
     return render(request, 'join_game.html', context)
 
-
-
-
-from django.http import HttpResponse
-from django.shortcuts import render
-from spotipy.oauth2 import SpotifyClientCredentials
-import spotipy
-import random
-from io import BytesIO
-import pygame.mixer
-import nltk
-
-nltk.download('words')
-from nltk.corpus import words
-
-pygame.mixer.init()
-
-client_id = '845df6cbf5ee42f4884ebd14605fd17c'
-client_secret = 'd59c601d020b4266bc2ab27a95520cb1'
-client_credentials_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
-sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
-word_list = words.words()
 
 def download_song_preview(track_id):
     track_info = sp.track(track_id)
