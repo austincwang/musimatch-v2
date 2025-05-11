@@ -6,14 +6,15 @@ from pygame import mixer
 import requests
 from io import BytesIO
 import nltk
+from django.conf import settings
 
 nltk.download('words')
 from nltk.corpus import words
 word_list = words.words()
 
 # Spotify API credentials
-client_id = '845df6cbf5ee42f4884ebd14605fd17c'
-client_secret = 'd59c601d020b4266bc2ab27a95520cb1'
+client_id = settings.CLIENT_ID
+client_secret = settings.CLIENT_SECRET
 
 # Set up Spotify client credentials
 client_credentials_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
