@@ -18,7 +18,7 @@ from nltk.corpus import words
 pygame.mixer.init()
 
 client_id = settings.CLIENT_ID
-client_secret = settings.ClIENT_SECRET
+client_secret = settings.CLIENT_SECRET
 client_credentials_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 word_list = words.words()
