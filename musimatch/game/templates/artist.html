@@ -7,6 +7,7 @@
 {% block content %}
     <h1>Category: artist</h1>
     <div style="text-align: center; margin-top: 50px;"> 
+        <!-- make form disappear after submitting -->
         <form method="post" action="{% url 'game:artist_search' %}">
             {% csrf_token %}
             <label for="submission">Enter Artist:</label><br> 
@@ -17,18 +18,31 @@
     </div>
     <div style="text-align: center; margin-top: 20px;"> 
         <!-- autocomplete box? -->
-    {% if artist %}
-        <h2>Artist: {{ artist }}</h2>
-        <form method="post" action="">
-            {% csrf_token %}
-            <label for="submission">Guess 1:</label><br> 
-            <input type="text" id="submission" name="submission" style="color: green;">
-            <button type="submit" style="color: green;">Enter</button> 
+        {% if artist %}
+        <h2>Artist: {{ artist }}</h2> 
+        <!-- change artist to be the actual artist and not the searched artist -->
+        {% if not submitted %}
+            <form method="post" action="{% url 'game:guess1' %}">
+                {% csrf_token %}
+                <label for="guess1">Guess 1:</label><br> 
+                <div style="display: inline-block;"> 
+                    <input type="text" id="guess1" name="guess1" style="color: green;">
+                    <button type="submit" style="color: green;">Enter</button> 
+                </div>
+            {% endif %}
             <!-- if variable matches? also need to find a way to continue listening where u left off-->
+            <!-- ig now i need to handle the separate correct/incorrect cases and then repeat it 6 times -->
+            {% if wrong_guess %}
+                <p style="color: red; display: inline;"><span style="color: white;">{{ guess1 }}:     </span> Incorrect</p>
+            {% endif %}
+            {% if wrong_guess == False %}
+            <p style="color: green; display: inline;"><span style="color: white;">{{ guess1 }}:     </span> Correct</p>
+            {% endif %}
         </form>
     {% endif %}
+
+
     </div>
 
 {% endblock %}
-
 

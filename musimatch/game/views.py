@@ -1,12 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.shortcuts import redirect
 from spotipy.oauth2 import SpotifyClientCredentials
 import spotipy
 import requests
 from io import BytesIO
 from pygame import mixer
 import time
+import random
+import nltk
+import pygame.mixer
+
 
 
 # Create your views here.
@@ -17,16 +20,6 @@ def join_game(request):
     return render(request, 'join_game.html', context)
 
 
-
-
-from django.http import HttpResponse
-from django.shortcuts import render
-from spotipy.oauth2 import SpotifyClientCredentials
-import spotipy
-import random
-from io import BytesIO
-import pygame.mixer
-import nltk
 
 nltk.download('words')
 from nltk.corpus import words
@@ -63,7 +56,7 @@ def play_song_preview(track_id):
 
     pygame.mixer.music.load(audio_data)
     pygame.mixer.music.play()
-    time.sleep(2)
+    time.sleep(5)
     pygame.mixer.music.stop()
 
     # Wait for the song to finish playing
@@ -84,6 +77,8 @@ def play_random_song(request):
         return HttpResponse("No tracks with audio previews found.") # make it a while loop so something is always found
 
     # Select a random track from the list
+    global track_name
+    global track_artist
     random_track = random.choice(tracks_with_previews)
     track_name = random_track['name']
     track_artist = random_track['artists'][0]['name']
@@ -114,6 +109,8 @@ def play_random_song_by_artist(artist):
         return HttpResponse("No tracks with audio previews found.") # make it a while loop so something is always found
 
     # Select a random track from the list
+    global track_name
+    global track_artist
     random_track = random.choice(tracks_with_previews)
     track_name = random_track['name']
     track_artist = random_track['artists'][0]['name']
@@ -165,10 +162,30 @@ def play_random_song_by_artist(artist):
 
 def artist_search(request):
     if request.method == 'POST':
+        global artist
         artist = request.POST.get('submission', '') # this is where we modify what happens after submission
         play_random_song_by_artist(artist)
     return render(request, 'artist.html', {'artist': artist})
     #return HttpResponse(artist)
+
+def guess1(request):
+    if request.method == 'POST':
+        guess1 = request.POST.get('guess1', '')
+        print(f"guess: {guess1}")
+        print(f"answer: {track_name}")
+        global wrong_guess
+        if guess1.lower() == track_name.lower():
+            print("correct!")
+            wrong_guess = False
+        else:
+            print("incorrect")
+            wrong_guess = True
+        global submitted
+        submitted = True
+    return render(request, 'artist.html', {'artist': artist, 'wrong_guess': wrong_guess, 'submitted': submitted, 'guess1': guess1})
+            
+        
+
 
 def genre_search(request):
     if request.method == 'POST':

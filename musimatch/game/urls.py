@@ -12,4 +12,5 @@ urlpatterns = [
     path('genre/', views.play_by_genre, name='play_by_genre'),
     path('time_period_search/', views.time_period_search, name='time_period_search'),
     path('time_period/', views.play_by_time_period, name='play_by_time_period'),
+    path('guess1/', views.guess1, name='guess1'),
 ]
