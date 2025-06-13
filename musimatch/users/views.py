@@ -44,7 +44,8 @@ def register_view(request):
                     user_name = register_form.cleaned_data.get("username")
                     return redirect("users:profile", user_name = user_name)
                 else:
-                    messages.error(request, "An error occurred")
+                    print(register_form.errors)
+                    messages.error(request, register_form.errors)
                     return redirect("users:register")
 
     return render(request, "register.html")
@@ -98,18 +99,18 @@ def logout_view(request):
 
 def edit_profile_view(request):
     current_user = get_user_model().objects.get(username=request.user.username)
-    
+
     if request.method == "POST":
         if 'update' in request.POST:
             form = UpdateProfileForm(
-                data = {
-                    'username': request.POST['username'],
-                    'pfp': request.FILES['image'],
-                    'description': request.POST['description']
-                },
+                request.POST,
+                request.FILES,
                 instance=current_user
             )
+            
             if form.is_valid():
+                if 'pfp' in request.FILES:
+                    current_user.pfp = request.FILES['pfp']
                 form.save()
                 login(request, current_user)
                 messages.success(request, "Profile updated successfully")
@@ -122,5 +123,3 @@ def edit_profile_view(request):
         form = UpdateProfileForm(instance=current_user)
 
     return render(request, "edit-profile.html")
-
-    

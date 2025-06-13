@@ -6,26 +6,70 @@
 
 {% block content %}
     <h1>Category: artist</h1>
-    <div style="text-align: center; margin-top: 50px;"> 
+    <div style="text-align: center; margin-top: 30px;"> 
         <form method="post" action="{% url 'game:artist_search' %}">
             {% csrf_token %}
+            <input type="hidden" name="form_type" value="artist">
             <label for="submission">Enter Artist:</label><br> 
-            <input type="text" id="submission" name="submission" style="color: green;">
+            <input type="text" id="submission" name="submission" value="{{ artist }}" style="color: green;">
             <button type="submit" style="color: green;">Submit</button> 
             <!-- maybe change colour to match spotify, try to give option to select artist from dropdown, play full song with spotify sdk? -->
+        </form>
+    </div>
+    <h1 style="margin-top: 50px;">Popular Artists</h1>
+    <div style="text-align: center; margin-top: 20px;">
+        <form method="post" action="{% url 'game:artist_search' %}">
+            {% csrf_token %}
+            <input type="hidden" name="form_type" value="taylor_swift">
+            <button type="submit" name="action" value="taylor_swift" style="color: green;">Taylor Swift</button>
         </form>
     </div>
     <div style="text-align: center; margin-top: 20px;"> 
         <!-- autocomplete box? -->
     {% if artist %}
-        <h2>Artist: {{ artist }}</h2>
+        {% if previewable_tracks %}
+            <form method="post" action="{ % url 'game:artist_search' %}">
+                {% csrf_token %}
+                <input type="hidden" name="form_type" value="guess">
+                <label for="guess">Guess the Song:</label><br> 
+                <input list="track-options" name="guess" id="guess" style="color: green;">
+                <datalist id="track-options">
+                    {% for t in previewable_tracks %}
+                        <option value="{{ t.name }}">
+                    {% endfor %}
+                </datalist>
+                <button type="submit" style="color: green;">Submit Guess</button>
+            </form>
+
+            <br>
+            <h3>Now Playing:</h3>
+            <p><strong>{{ track.name }}</strong> by {{ track.artists.0.name }}</p>
+            <img src="{{ track.album.images.0.url }}" width="300"><br>
+            <audio id="player" controls style="display: none;">
+                <source src="{{ track.preview_url }}" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            
+            <button onclick="document.getElementById('player').style.display = 'block'; document.getElementById('player').play();">
+                ▶️ Play Song
+            </button>
+
+            {% if is_correct is not None %}
+                {% if is_correct %}
+                    <p style="color: green;"><strong>✅ Correct!</strong> The song was "{{ track.name }}".</p>
+                {% else %}
+                    <p style="color: red;"><strong>❌ Incorrect.</strong> The song was "{{ track.name }}".</p>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+        <!-- <h2>Artist: {{ artist }}</h2>
         <form method="post" action="">
             {% csrf_token %}
             <label for="submission">Guess 1:</label><br> 
             <input type="text" id="submission" name="submission" style="color: green;">
             <button type="submit" style="color: green;">Enter</button> 
-            <!-- if variable matches? also need to find a way to continue listening where u left off-->
-        </form>
+            if variable matches? also need to find a way to continue listening where u left off
+        </form> -->
     {% endif %}
     </div>
 

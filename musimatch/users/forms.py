@@ -51,9 +51,11 @@ class LoginForm(AuthenticationForm):
 
 
 class UpdateProfileForm(forms.ModelForm):
-    pfp = forms.ImageField(label="Profile Picture")
-    username = forms.CharField(label="Username", max_length=25, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Username'}))
-    description = forms.CharField(label="Description", max_length=100, widget=forms.Textarea(attrs={'class':'form-control', 'placeholder':'Description'}))
+    pfp = forms.ImageField(label="Profile Picture", required=False)
+    username = forms.CharField(label="Username", max_length=25, required=False,
+                                widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Username'}))
+    description = forms.CharField(label="Description", max_length=100, required=False, 
+                                  widget=forms.Textarea(attrs={'class':'form-control', 'rows': 2, 'placeholder':'Description'}))
 
     class Meta:
         model = get_user_model()

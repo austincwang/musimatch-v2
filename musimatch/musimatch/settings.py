@@ -88,11 +88,11 @@ WSGI_APPLICATION = 'musimatch.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        "NAME": "railway",
+        "NAME": "musimatch",
         "USER": "postgres",
-        "PASSWORD": "YgkMiKPjXyfLCWMbviPxRXhQpKbriqjC",
-        "HOST": "viaduct.proxy.rlwy.net",
-        "PORT": "30335",
+        "PASSWORD": "340829217postgres",
+        "HOST": "localhost",
+        "PORT": "5433",
     }
 }
 
@@ -101,16 +101,7 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
 

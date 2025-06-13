@@ -10,6 +10,13 @@
             <!-- Register From -->
             <div class="form">
                 <form action="{% url 'users:register' %}" method="post">
+                    <!-- {% if messages %}
+                        <div class="form-messages">
+                            {% for message in messages %}
+                                <p class="error">{{ message }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %} -->
                     {% csrf_token %}
                     <h2>Register</h2>
                     <div class="input_box">

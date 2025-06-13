@@ -9,7 +9,7 @@
     <h1 class="mt-2">Join Game</h1>
     {% block category %}
     <a class="button mt-2" id="song-of-the-day-btn" href="{% url 'game:play_random_song' %}" role="button">Song of the Day - currently random</a> 
-    <a class="button mt-1" href="{% url 'game:play_by_artist' %}" role="button">Play by Artist</a>
+    <a class="button mt-1" href="{% url 'game:artist_search' %}" role="button">Play by Artist</a>
     <a class="button mt-1" href="{% url 'game:play_by_genre' %}" role=" mt-1">Play by Genre</a>
     <a class="button mt-1" href="{% url 'game:play_by_time_period' %}" role="button">Play by Time Period</a>
     {% endblock %}

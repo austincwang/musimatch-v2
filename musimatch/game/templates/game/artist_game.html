@@ -1,0 +1,16 @@
+{% extends 'base_layout.html' %}
+
+{% block title %}
+    Specific Artist Game
+{% endblock %}
+
+{% block content %}
+<h2>{{ track_name }} by {{ artist_name }}</h2>
+<img src="{{ album_img }}" alt="Album Cover" style="max-height: 200px;">
+<br>
+<audio controls="controls">
+    <source src="{{ preview_url }}" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+
+{% endblock %} 
